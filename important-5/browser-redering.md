@@ -1,19 +1,33 @@
-## #브라우저의 렌더링 원리
+# 브라우저의 렌더링 원리
 
-1.**HTML를 [파싱](#gear-파싱)후, [DOM](#gear-DOM)트리를 구축 2.**CSS를 파싱 후, [CSSDOM](#gear-CSSDOM)트리를 구축 3.**Javascript를 실행 - 주의! HTML 중간에 스크립트가 있다면 HTML 파싱을 중단 4.**DOM과 CSSDOM을 조합하여 [렌더트리](#gear-렌더트리)를 구축 - 주의! `display: none` 속성과 같이 화면에서 보이지도 않고 공간에 차지하지 않는 것은 렌더트리로 구축되지 않는다. 5.**뷰포트 기반으로 렌더트리의 각 노드가 가지는 정확한 위치와 크기를 계산한다. ([Layout](#gear-Layout)단계) 6.**계산한 위치/크기를 기반으로 화면에 그린다.([Paint](#gear-Paint)단계)
+브라우저가 화면에 나타나는 요소를 렌더링 할 때, 웹킷(Webkit)이나 게코(Gecko) 등과 같은 [렌더링엔진](#gear-렌더링엔진) 을 사용합니다. 렌더링 엔진이 HTML, CSS, Javascript로 렌더링할 때 [CRP](#gear-crp)라는 프로세스를 사용하며 다음 단계들로 이루어집니다.
+
+<br>
+
+1. **HTML를 [파싱](#gear-파싱) 후, [DOM](#gear-dom)트리를 구축합니다.**
+2. **CSS를 파싱 후, [CSSOM](#gear-cssom)트리를 구축합니다.**
+3. **Javascript를 실행합니다.**
+   - 주의! HTML 중간에 스크립트가 있다면 HTML 파싱이 중단됩니다.
+4. **DOM과 CSSOM을 조합하여 [렌더트리](#gear-렌더트리)를 구축합니다.**
+   - 주의! `display: none` 속성과 같이 화면에서 보이지도 않고 공간을 차지하지 않는 것은 렌더트리로 구축되지 않습니다.
+5. **뷰포트 기반으로 렌더트리의 각 노드가 가지는 정확한 위치와 크기를 계산합니다. ([Layout](#gear-layout) 단계)**
+6. **계산한 위치/크기를 기반으로 화면에 그립니다. ([Paint](#gear-paint) 단계)**
+
+<br>
 
 ---
+
+<br>
 
 ## :hammer_and_wrench: 용어 공부
 
 ### :gear: 렌더링엔진
 
-- 브라우저 마다 다르지만, 브라우저는 렌더링을 수행하는 렌더링 엔진을 가지고 있다.크롬은 블링크(Blink), 사파리는 웹킷 그리고 파이어폭스는 게코라는 렌더링 엔진을 사용한다
+- 브라우저 마다 다르지만, 브라우저는 렌더링을 수행하는 렌더링 엔진을 가지고 있습니다. 크롬은 블링크(Blink), 사파리는 웹킷(Webkit) 그리고 파이어폭스는 게코(Gecko)라는 렌더링 엔진을 사용합니다.
 
 ### :gear: CRP
 
-- CRP (Critical Rendering Path,중요 렌더링 경로)는 브라우저가 HTML, CSS, Javascript를 화면에 픽셀로 변화하는 일련의 단계를 말한다.
-  CRP는 Document Object Model (DOM), CSS Object Model (CSSDOM), 렌더 트리 그리고 레이아웃을 포함한다.
+- CRP (Critical Rendering Path, 중요 렌더링 경로)는 브라우저가 HTML, CSS, Javascipt를 화면에 픽셀로 변화하는 일련의 단계를 말합니다. CRP는 Document Object Model (DOM), CSS Object Model (CSSOM), 렌더 트리 그리고 레이아웃을 포함합니다.
 
 ### :gear: 파싱
 
